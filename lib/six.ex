@@ -19,4 +19,23 @@ defmodule Adventofcode2016.Six do
       "#{acc}#{letter}"
     end)
   end
+
+  def six_two do
+    @codes
+    |> Enum.reduce(%{}, fn(letters, acc) ->
+      Enum.with_index(letters)
+      |> Enum.reduce(acc, fn({letter, index}, acc) ->
+        Map.update(acc, index, %{letter => 1}, fn(map) ->
+          Map.update(map, letter, 1, &(&1 + 1))
+        end)
+      end)
+    end)
+    |> Enum.reduce("", fn({_key, value}, acc) ->
+      {letter, _count} = Map.to_list(value)
+      |> Enum.sort_by(fn({_key, value}) -> value end)
+      |> List.first
+
+      "#{acc}#{letter}"
+    end)
+  end
 end
