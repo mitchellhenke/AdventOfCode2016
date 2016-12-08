@@ -13,6 +13,13 @@ defmodule Adventofcode2016.Eight do
     |> Enum.filter(&(&1 == 1))
     |> Enum.count
   end
+
+  def eight_two do
+    commands = Enum.map(@commands, &parse_command/1)
+    Enum.reduce(commands, @starting_matrix, fn(command, matrix) ->
+      handle_command(command, matrix)
+    end)
+    |> pretty_print_matrix
   end
 
   def parse_command(["rect", size]) do
