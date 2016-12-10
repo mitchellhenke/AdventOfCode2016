@@ -12,6 +12,17 @@ defmodule Adventofcode2016.Ten do
     end)
   end
 
+  def ten_two do
+    result = Enum.reduce(@commands, %{}, fn(command, acc) ->
+      do_setup_command(command, acc)
+    end)
+
+    output = do_command(@commands, result)
+    IO.inspect(output["output0"], char_lists: false)
+    IO.inspect(output["output1"], char_lists: false)
+    IO.inspect(output["output2"], char_lists: false)
+  end
+
   def do_command([], state) do
     state
   end
